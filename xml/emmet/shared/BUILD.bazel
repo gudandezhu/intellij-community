@@ -1,0 +1,79 @@
+load("@rules_jvm//:jvm.bzl", "jvm_library", "jvm_provided_library")
+load("//platform/build-scripts/bazel-rules:content_module_jar.bzl", "content_module_jar")
+
+### auto-generated section `dev intellij.xml.emmet.shared` start
+content_module_jar(module = ":shared")
+### auto-generated section `dev intellij.xml.emmet.shared` end
+
+### auto-generated section `build intellij.xml.emmet.shared` start
+jvm_provided_library(
+    name = "platform_ide-impl_provided",
+    lib = "//platform/platform-impl:ide-impl",
+)
+
+jvm_provided_library(
+    name = "libraries_kotlinx_serialization_core_provided",
+    lib = "//libraries/kotlinx/serialization/core",
+)
+
+jvm_library(
+    name = "shared",
+    srcs = glob(
+        [
+            "src/**/*.kt",
+            "src/**/*.java",
+            "src/**/*.form",
+        ],
+        allow_empty = True,
+    ),
+    module_name = "intellij.xml.emmet.shared",
+    resource_strip_prefix = "resources",
+    resources = glob(
+        ["resources/**/*"],
+    ),
+    visibility = ["//visibility:public"],
+    deps = [
+        # do not sort,
+        "@lib//:kotlin-stdlib",
+        "//libraries/jetbrains/annotations",
+        "//xml/xml-ui-common:ui-common",
+        "//libraries/kotlinx/collections-immutable:libraries-kotlinx-collections-immutable",
+        "//platform/kernel/rpc",
+        ":platform_ide-impl_provided",
+        ":libraries_kotlinx_serialization_core_provided",
+    ],
+)
+
+jvm_library(
+    name = "shared_test_lib",
+    testonly = True,
+    srcs = glob(
+        [],
+        allow_empty = True,
+    ),
+    module_name = "intellij.xml.emmet.shared",
+    visibility = ["//visibility:public"],
+    runtime_deps = [
+        # do not sort,
+        ":shared",
+        "//libraries/jetbrains/annotations:annotations_test_lib",
+        "//xml/xml-ui-common:ui-common_test_lib",
+        "//platform/platform-impl:ide-impl",
+        "//platform/platform-impl:ide-impl_test_lib",
+        "//libraries/kotlinx/collections-immutable:libraries-kotlinx-collections-immutable_test_lib",
+        "//libraries/kotlinx/serialization/core",
+        "//libraries/kotlinx/serialization/core:core_test_lib",
+        "//platform/kernel/rpc:rpc_test_lib",
+    ],
+)
+### auto-generated section `build intellij.xml.emmet.shared` end
+
+### auto-generated section `iml intellij.xml.emmet.shared` start
+exports_files(
+    [
+        "intellij.xml.emmet.shared.iml",
+        "resources/intellij.xml.emmet.shared.xml",
+    ],
+    visibility = ["//visibility:public"],
+)
+### auto-generated section `iml intellij.xml.emmet.shared` end
